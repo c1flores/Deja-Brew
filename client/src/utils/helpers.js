@@ -1,0 +1,1 @@
+// Miscellaneous functions and IndexedDB API
