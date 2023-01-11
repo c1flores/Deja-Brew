@@ -14,9 +14,6 @@ const server = new ApolloServer({
     context: authMiddleware
 })
 
-const deleteMe = () =>
-console.log("deleteMe")
-
 const app = express();
 server.applyMiddleware({ app });
 
