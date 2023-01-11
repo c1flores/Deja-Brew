@@ -22,5 +22,21 @@ function Navigation({ currentPage, handlePageChange }) {
         },
     };
 
-    
+    return (
+        <>
+            <Navbar variant='dark' className='nav-items' style={hide} id='nav-full'>
+                <Container className='nav-item'>
+                    <Navbar.Brand href='#about' onClick={() => handlePageChange('Home')}
+                    className={currentPage === 'About' ? 'nav-link active' : "nav-link"}>Deja-Brew</Navbar.Brand>
+                    <nav className='nav-items'>
+                        <Nav.Link href="#home" onClick={() => handlePageChange('Home')}
+                        className={currentPage === 'Home' ? 'nav=link active' : 'nav-link'}>Home</Nav.Link>
+                        <Nav.Link href="#home" onClick={() => handlePageChange('Home')}
+                        className={currentPage === 'Home' ? 'nav=link active' : 'nav-link'}>Home</Nav.Link>
+                         
+                    </nav>
+                </Container>
+            </Navbar>
+        </>
+    )
 }
