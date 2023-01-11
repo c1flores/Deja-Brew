@@ -18,7 +18,7 @@ const LoginForm = () => {
     }
     }, [error]);
 
-    const hanleInputChange = (event) => {
+    const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value});
     };
@@ -48,5 +48,53 @@ const LoginForm = () => {
         });
     };
 
+    return (
+    <>
+    <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <Alert 
+        dismissible
+        onClose={() => setShowAlert(false)}
+        show={showAlert}
+        validated="danger">
+            Something went wrong with your login credentials!
+        </Alert>
+        <Form.Group>
+            <Form.Label htmlFor="email">Email</Form.Label>
+            <Form.Control
+            type="text"
+            placeholder="your email"
+            name="email"
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
+            />
+            <Form.Control.Feedback type="invalid">
+                Email is required
+            </Form.Control.Feedback>
+        </Form.Group>
 
-}
+        <Form.Group>
+            <Form.Label htmlFor="password">Password</Form.Label>
+            <Form.Control
+            type="password"
+            placeholder="Your Password"
+            name="password"
+            onChange={handleInputChange}
+            value={userFormData.password}
+            required
+            />
+            <Form.Control.Feedback type="invalid">
+                Password is required
+            </Form.Control.Feedback>
+        </Form.Group>
+        <Button 
+        disabled={!(userFormData.email && userFormData.password)}
+        >
+            submit
+        </Button>
+    </Form>
+    </>
+    );
+};
+
+export default LoginForm
