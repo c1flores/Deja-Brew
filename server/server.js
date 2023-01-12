@@ -1,14 +1,14 @@
-// set up express server
+// Set up express server
 const express = require("express");
 const path = require("path");
-// set up Apollo Server
+// Set up Apollo Server
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
 
 const { authMiddleware } = require("./utils/auth");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -30,7 +30,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
-// set up mongoose
+// Set up mongoose
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
