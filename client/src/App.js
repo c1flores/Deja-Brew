@@ -1,54 +1,50 @@
-import React from 'react';
+import React from "react";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
+import { StoreProvider } from "./utils/GlobalState";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {ApolloProvider} from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
-import { StoreProvider } from './utils/GlobalState';
-
-import Home from './pages/Home';
-import Menu from './pages/Menu';
+import Home from "./pages/Home";
+// import Menu from './pages/Menu';
 // import MyOrder from './pages/MyOrder';
 // import History from './pages/History';
-import SignupForm from './pages/Signup';
-import LoginForm from './pages/Login';
+import SignupForm from "./pages/SignUp";
+import LoginForm from "./pages/Login";
 // import NoMatch from "./pages/NoMatch";
 // import Success from "./pages/Success";
 
-import FooterStrap from './components/Footer'
-import NavStrap from './components/Nav';
+// import FooterStrap from './components/Footer'
+import NavBar from "./components/Nav";
 
 const client = new ApolloClient({
   request: (operation) => {
-    const token = localStorage.getItem('id_token')
+    const token = localStorage.getItem("id_token");
     operation.setContext({
       headers: {
-        authorization: token ? `Bearer ${token}`: ''
-      }
-    })
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    });
   },
-  uri: 'http://localhost:3001/graphql',
-})
+  uri: "http://localhost:3001/graphql",
+});
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div>
-          <StoreProvider>
-              <NavStrap />
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/menu" component={Menu} />
-                <Route exact path="/login" component={LoginForm} />
-                <Route exact path="/signup" component={SignupForm} />
-              </Switch>
-              <FooterStrap />
-          </StoreProvider>
-        </div>
-      </Router>
+      <BrowserRouter>
+        <StoreProvider>
+          <NavBar />
+          <Routes>
+            <Route exact path="/" component={<Home />}></Route>
+            {/* <Route exact path="/menu" component={<Menu/>}></Route> */}
+            <Route exact path="/login" component={<LoginForm />}></Route>
+            <Route exact path="/signup" component={<SignupForm />}></Route>
+          </Routes>
+          {/*<FooterStrap />*/}
+        </StoreProvider>
+      </BrowserRouter>
     </ApolloProvider>
-    
   );
 }
 

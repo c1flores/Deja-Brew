@@ -1,8 +1,7 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 // Defining types and fields for GraphQL data
 const typeDefs = gql`
-
   type Category {
     _id: ID
     name: String
@@ -57,11 +56,21 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+    ): Auth
     login(email: String!, password: String!): Auth
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
+    updateUser(
+      firstName: String
+      lastName: String
+      email: String
+      password: String
+    ): User
     addOrder(drinks: [ID]!): Order
-    }
+  }
 `;
 
 module.exports = typeDefs;

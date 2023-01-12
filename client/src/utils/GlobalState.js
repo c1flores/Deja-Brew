@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { useProductReducer } from './reducers'
+import { useProductReducer } from "./reducers";
 
 // Create our theme context using React.CreateContext()
 const StoreContext = createContext();
@@ -12,10 +12,10 @@ const StoreProvider = ({ value = [], ...props }) => {
     cart: [],
     cartOpen: false,
     categories: [],
-    currentCategory: '',
+    currentCategory: "",
   });
 
-// The provider component will wrap all other components inside of it that need access to our global state
+  // The provider component will wrap all other components inside of it that need access to our global state
   return <Provider value={[state, dispatch]} {...props} />;
 };
 
