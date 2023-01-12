@@ -1,8 +1,7 @@
-# Reapers-Keeper
+# Deja-Brew
 
 ## DESCRIPTION
-
-Blah blah blah...
+A coffee shop platform where users can order menu items by adding items into a cart, customize order, and also purchase the items using a credit or debit card. Orders will be saved in their profile. 
 
 ## Table of Contents
 * [Installation](#installation)

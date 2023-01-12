@@ -1,110 +1,115 @@
-import React, { useState, useEffect, useEffect } from 'react'
-import { Form, Button, Alert } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../../utils/mutations';
-import Auth from  '../../utils/auth';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import Auth from "../utils/auth";
+import { ADD_USER } from "../utils/mutations";
 
-const SignupForm = () => {
-    const [userFormData, setUserFormData] = useState({ username:'', email:'', password:'',});
+import "bootstrap/dist/css/bootstrap.min.css";
 
-    const [validated] = useState(false);
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Form,
+  Card,
+  Jumbotron,
+} from "react-bootstrap";
 
-    const [showAlert, setShowAlert] = useState(false);
+function SignupForm(props) {
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [addUser] = useMutation(ADD_USER);
 
-    const [addUser, {error}] = useMutation(ADD_USER);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log({
+      email: formState.email,
+      password: formState.password,
+      firstName: formState.firstName,
+      lastName: formState.lastName,
+    });
+    const mutationResponse = await addUser({
+      variables: {
+        email: formState.email,
+        password: formState.password,
+        firstName: formState.firstName,
+        lastName: formState.lastName,
+      },
+    });
+    const token = mutationResponse.data.addUser.token;
+    Auth.login(token);
+  };
 
-    useEffect(() => {
-        if(error) {
-            setShowAlert(true);
-        }else {
-            setShowAlert(false);
-        }
-    }, [error]);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log(event.target.type);
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setUserFormData({ ...userFormData, [name]: value});
-    };
+  return (
+    <Jumbotron
+      style={{ backgroundColor: "transparent", minHeight: "100vh" }}
+      fluid
+    >
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col md lg="4">
+            <Card>
+              <Card.Body>
+                <Form onSubmit={handleFormSubmit} action="submit">
+                  <Form.Group controlId="formFirst">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="firstname"
+                      name="firstName"
+                      isRequired
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
 
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+                  <Form.Group controlId="formLast">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="lastname"
+                      name="lastName"
+                      isRequired
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
 
-        const form = event.currentTarget;
-        if (form.checkValidity() === false ) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        
-        try {
-            const { data } = await addUser({
-                variables: { ...userFormData },
-            });
-            console.log(data);
-            Auth.login(data.addUser.token);
-        } catch (err) {
-            console.error(err);
-        }
+                  <Form.Group controlId="formEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      isRequired
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
 
-        setUserFormData({
-            username:'',
-            email:'',
-            password:'',
-        });
-    };
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      isRequired
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
 
-    return (
-        <>
-        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-            <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                Something went wrong with your signup!
-            </Alert>
+                  <Button variant="dark" type="submit" block>
+                    Signup
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </Jumbotron>
+  );
+}
 
-            <Form.Group>
-                <Form.Label htmlFor='username'> Username</Form.Label>
-                <Form.Control
-                type='text'
-                placeholder='Your username'
-                name='usename'
-                onChange={handleInputChange}
-                value={userFormData.username}
-                required
-                />
-                <Form.Control.Feedback type='invalid'> Username is required</Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group> 
-                <Form.Label htmlFor="email">Email</Form.Label>
-                <Form.Control
-                type='email'
-                placeholder='your Email'
-                name='email'
-                onChange={handleInputChange}
-                value={userFormData.email}
-                required
-                />
-                <Form.Control.Feedback type='invalid'> Email is required</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group>
-                <Form.Label htmlFor='password'>Password</Form.Label>
-                <Form.Control
-                type="password"
-                placeholder='Your password'
-                name='password'
-                onChange={handleInputChange}
-                value={userFormData.password}
-                required
-                />
-                <Form.Control.Feedback type='invalid'> Password is required!</Form.Control.Feedback>
-            </Form.Group>
-            <Button
-            disabled={!(userFormData.username && userFormData.email && userFormData.password)}
-            type='submit'
-            variant='success'>
-                submit
-            </Button>
-        </Form>
-        </>
-    );
-};
-
-export default SignupForm
+export default SignupForm;

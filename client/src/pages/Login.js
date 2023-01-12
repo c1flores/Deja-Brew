@@ -1,100 +1,93 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, Alert } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../../utils/mutations';
-import Auth from '../../utils/auth'
+import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { LOGIN } from "../utils/mutations";
+import Auth from "../utils/auth";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Form,
+  Card,
+  Jumbotron,
+} from "react-bootstrap";
 
-const LoginForm = () => {
-    const [userFormData, setUserFormData] = useState({ email: '', password: ''});
-    const [validated] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-    const [login, { error }] = useMutation(LOGIN_USER);
+function LoginForm(props) {
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [login, { error }] = useMutation(LOGIN);
 
-    useEffect(() => {
-    if (error) {
-        setShowAlert(true);
-    } else {
-        setShowAlert(false);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(formState.email);
+      console.log(formState.password);
+      const mutationResponse = await login({
+        variables: { email: formState.email, password: formState.password },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
     }
-    }, [error]);
+  };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setUserFormData({ ...userFormData, [name]: value});
-    };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+  return (
+    <Jumbotron
+      style={{ backgroundColor: "transparent", minHeight: "100vh" }}
+      fluid
+    >
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col md lg="4">
+            <Card>
+              <Card.Body>
+                <Form onSubmit={handleFormSubmit} action="submit">
+                  <Form.Group controlId="formEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      isRequired
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
 
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      isRequired
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  {error ? (
+                    <div>
+                      <p className="error-text">
+                        The provided credentials are incorrect
+                      </p>
+                    </div>
+                  ) : null}
+                  <Button variant="dark" type="submit" block>
+                    Login
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </Jumbotron>
+  );
+}
 
-        try {
-            const { data } = await login({
-                variables: { ...userFormData },
-            });
-
-            Auth.login(data.login.token);
-        } catch (err) {
-            console.log(err)
-        }
-    
-        setUserFormData({
-            email: '',
-            password: '',
-        });
-    };
-
-    return (
-    <>
-    <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert 
-        dismissible
-        onClose={() => setShowAlert(false)}
-        show={showAlert}
-        validated="danger">
-            Something went wrong with your login credentials!
-        </Alert>
-        <Form.Group>
-            <Form.Label htmlFor="email">Email</Form.Label>
-            <Form.Control
-            type="text"
-            placeholder="your email"
-            name="email"
-            onChange={handleInputChange}
-            value={userFormData.email}
-            required
-            />
-            <Form.Control.Feedback type="invalid">
-                Email is required
-            </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-            <Form.Label htmlFor="password">Password</Form.Label>
-            <Form.Control
-            type="password"
-            placeholder="Your Password"
-            name="password"
-            onChange={handleInputChange}
-            value={userFormData.password}
-            required
-            />
-            <Form.Control.Feedback type="invalid">
-                Password is required
-            </Form.Control.Feedback>
-        </Form.Group>
-        <Button 
-        disabled={!(userFormData.email && userFormData.password)}
-        >
-            submit
-        </Button>
-    </Form>
-    </>
-    );
-};
-
-export default LoginForm
+export default LoginForm;

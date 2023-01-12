@@ -6,7 +6,7 @@ import {
   ADD_MULTIPLE_TO_CART,
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
-  CLEAR_CART
+  CLEAR_CART,
 } from "./actions";
 
 // Main reducer function for managing application state
@@ -33,21 +33,21 @@ export const reducer = (state, action) => {
       };
 
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter(item => {
+      let newState = state.cart.filter((item) => {
         return item._id !== action._id;
       });
 
       return {
         ...state,
         cartOpen: newState.length > 0,
-        cart: newState
+        cart: newState,
       };
 
     case CLEAR_CART:
       return {
         ...state,
         cartOpen: false,
-        cart: []
+        cart: [],
       };
 
     case UPDATE_CATEGORIES:
@@ -59,8 +59,8 @@ export const reducer = (state, action) => {
     case UPDATE_CURRENT_CATEGORY:
       return {
         ...state,
-        currentCategory: action.currentCategory
-      }
+        currentCategory: action.currentCategory,
+      };
 
     default:
       return state;
@@ -68,5 +68,5 @@ export const reducer = (state, action) => {
 };
 
 export function useProductReducer(initialState) {
-  return useReducer(reducer, initialState)
+  return useReducer(reducer, initialState);
 }

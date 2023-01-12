@@ -1,72 +1,62 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
-import {Navbar, Nav, Container, Modal, Tab} from 'react-bootstrap';
-import LoginForm from  './pages/Login';
-import Auth from './utils/auth';
+import React from "react";
+import Auth from "../../utils/auth";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
-const AppNavbar = () => {
-    const [showModal, setShowModal] = useState(false);
+import { Navbar, Nav } from "react-bootstrap";
 
+function NavBar(props) {
+  if (Auth.loggedIn()) {
     return (
-        <>
-        <Navbar bg="dark" variant="dark" expand="lg">
-            <Container fluid>
-                <Navbar.Brand as={Link} to='/'>
-                    *************space holder
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbar" />
-                <Navbar.Collapse id="navbar">
-                    <Nav className="ml-auto">
-                        <Nav.Link as={Link} to='/'>
-                        space holder
-                        </Nav.Link> 
-                        {Auth.loggedIn() ?( 
-                            <>
-                            <Nav.Link as={Link} to='/saved'>
-                            SpaCE HolDer
-                            </Nav.Link>
-                            <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
-                            </>
-                        ) : (
-                            <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-                        )}
-                        </Nav>
-                    </Navbar.Collapse>
-            </Container>
-        </Navbar>
-
-        <Modal
-        size='lg'
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        aria-labelledby='signup-modal'>
-        <Tab.Container defaultActiveKey='login'>
-            <Modal.Header closeButton>
-                <Modal.Title id="signup-modal">
-                    <Nav variant="pills">
-                        <Nav.Item>
-                            <Nav.Link eventKey="login">Login</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link eventKey="Signup">Sign Up</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Tab.Content>
-                    <Tab.Pane eventKey="login">
-                        <LoginForm handleModalClose={() => setShowModal(false)} />
-                    </Tab.Pane>
-                    <Tab.Pane eventKey='signup'>
-                        <SingnUpForm handleModalClose={() => setShowModal(false)} />
-                    </Tab.Pane>
-                </Tab.Content>
-            </Modal.Body>
-        </Tab.Container>
-        </Modal>
-        </>
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar.Brand as={Link} to="/">
+          {"<Deja Brew> ☕"}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={Link} to="/menu">
+              Menu
+            </Nav.Link>
+            <Nav.Link as={Link} to="/cart">
+              Cart
+            </Nav.Link>
+            <Nav.Link as={Link} to="/profile">
+              Profile
+            </Nav.Link>
+            <Nav.Link as={Link} to="/" onClick={() => Auth.logout()}>
+              Logout
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
-};
+  } else {
+    return (
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar.Brand as={Link} to="/">
+          {"<Deja Brew> ☕"}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={Link} to="/menu">
+              Menu
+            </Nav.Link>
+            <Nav.Link as={Link} to="/cart">
+              Cart
+            </Nav.Link>
+            <Nav.Link as={Link} to="/signup">
+              Signup
+            </Nav.Link>
+            <Nav.Link as={Link} to="/login">
+              Login
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
+}
 
-export default AppNavbar;
+export default NavBar;
