@@ -1,35 +1,55 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/pages/Menu';
-import About from './components/pages/About';
-//import Login from './components/pages/Login'
+import React from 'react';
 
 
-class App extends Component {
-    render() {
-        return (
-            <Router>
-                <div className='App'>
-                    <ul className='App-header'>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about"></Link>
-                        </li>
-                        <li>
-                            <Link to="/login"></Link>
-                        </li>
-                    </ul> 
-                    <Routes>
-                        <Route exact path='/' element={< Home />}></Route>
-                        <Route exact path='/about' element={< About />}></Route>
-                       {/* <Route exact path='/login' element={< Login />}></Route> */}
-                    </Routes>
-                </div>
-            </Router>
-        )
-    }
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {ApolloProvider} from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+import { StoreProvider } from './utils/GlobalState';
+
+import Home from './pages/Home';
+import Menu from './pages/Menu';
+// import MyOrder from './pages/MyOrder';
+// import History from './pages/History';
+import SignupForm from './pages/Signup';
+import LoginForm from './pages/Login';
+// import NoMatch from "./pages/NoMatch";
+// import Success from "./pages/Success";
+
+import FooterStrap from './components/Footer'
+import NavStrap from './components/Nav';
+
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem('id_token')
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}`: ''
+      }
+    })
+  },
+  uri: 'http://localhost:3001/graphql',
+})
+
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <StoreProvider>
+              <NavStrap />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/menu" component={Menu} />
+                <Route exact path="/login" component={LoginForm} />
+                <Route exact path="/signup" component={SignupForm} />
+              </Switch>
+              <FooterStrap />
+          </StoreProvider>
+        </div>
+      </Router>
+    </ApolloProvider>
+    
+  );
 }
 
 export default App;
