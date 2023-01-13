@@ -36,10 +36,10 @@ function App() {
         <StoreProvider>
           <NavBar />
           <Routes>
-            <Route exact path="/" component={<Home />}></Route>
+            <Route path="/" element={<Home />} />
             {/* <Route exact path="/menu" component={<Menu/>}></Route> */}
-            <Route exact path="/login" component={<LoginForm />}></Route>
-            <Route exact path="/signup" component={<SignupForm />}></Route>
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignupForm />} />
           </Routes>
           {/*<FooterStrap />*/}
         </StoreProvider>
