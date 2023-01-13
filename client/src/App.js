@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import { StoreProvider } from "./utils/GlobalState";
@@ -32,7 +32,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <BrowserRouter>
+      <Router>
         <StoreProvider>
           <NavBar />
           <Routes>
@@ -43,7 +43,7 @@ function App() {
           </Routes>
           {/*<FooterStrap />*/}
         </StoreProvider>
-      </BrowserRouter>
+      </Router>
     </ApolloProvider>
   );
 }
