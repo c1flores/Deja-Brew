@@ -4,7 +4,9 @@ const { Schema } = mongoose;
 const bcrypt = require("bcryptjs");
 const Order = require("./Order");
 
+// Schemas define the shape of the documents within the collection.
 const userSchema = new Schema({
+  // Schemas define the properties of the document
   firstName: {
     type: String,
     required: true,
@@ -43,6 +45,8 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
+// Create model using mongoose.model()
 const User = mongoose.model("User", userSchema);
 
+// Export model
 module.exports = User;

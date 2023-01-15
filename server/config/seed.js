@@ -2,17 +2,22 @@ const db = require("./connection");
 const { User, Drink, Category } = require("../models");
 
 db.once("open", async () => {
+  //  Drop existing categories
   await Category.deleteMany();
 
+  // Add drink categories to the collection and await the results
   const categories = await Category.insertMany([
     { name: "Hot Drinks" },
     { name: "Cold Drinks" },
   ]);
 
+  // Log out the seed data to indicate what should appear in the database
   console.log("Categories seeded");
 
+  // Drop existing drink items
   await Drink.deleteMany();
 
+  // Add drink items to the collection and await the results
   const drinks = await Drink.insertMany([
     {
       name: "Latte",
@@ -106,10 +111,13 @@ db.once("open", async () => {
     },
   ]);
 
+  // Log out the seed data to indicate what should appear in the database
   console.log("Drinks seeded");
 
+  //  Drop existing users
   await User.deleteMany();
 
+  // Add users to the collection and await the results
   await User.create({
     firstName: "Chris",
     lastName: "Flores",
@@ -129,6 +137,7 @@ db.once("open", async () => {
     password: "password12345",
   });
 
+  // Log out the seed data to indicate what should appear in the database
   console.log("Users seeded");
 
   process.exit();
