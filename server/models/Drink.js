@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
+// Schemas define the shape of the documents within the collection.
 const drinkSchema = new Schema({
+  // Schemas define the properties of the document
   name: {
     type: String,
     required: true,
@@ -30,6 +32,9 @@ const drinkSchema = new Schema({
   },
 });
 
+// Create model using mongoose.model()
 const Drink = mongoose.model("Drink", drinkSchema);
 
+
+// Export model
 module.exports = Drink;

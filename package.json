@@ -4,11 +4,18 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
+    "@comment start": "In production, we only run the back-end server, which will serve the built React application code as its front end.",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "cd server && npm start",
+    "@comment start:dev": "In development, we need to run both a back-end server and the React development server, so we use the `concurrently` library to execute two separate promises at the same time.",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "@comment install": "Since our dependencies for the entire application exist in two smaller applications, we use this script to automatically install all of them at once.",
     "install": "cd server && npm i && cd ../client && npm i",
+    "@comment seed": "We can seed our database with data when we run this command.",
     "seed": "cd server && npm run seed",
+    "@comment build": "When we deploy our application, we instruct the hosting service to execute the `build` command and build our production-ready React application.",
+    "build": "cd client && npm run build",
+    "@comment heroku-postbuild": "Customized build script for Heroku that runs in place of regular build script. Runs after Heroku installs dependencies, but before Heroku prunes and caches dependencies.",
     "heroku-postbuild": "cd client && npm run build"
   },
   "keywords": [],

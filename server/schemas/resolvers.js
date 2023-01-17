@@ -5,14 +5,14 @@ const stripe = require("stripe")(
   "sk_test_51MP7PnGFWu7Pm2SbcV4Mrwa8T8KdkmTrcHdaGTkq0x9TAgjZEi47jf1BvaPjcOuwcuscoCLo85BgU562ZPI2rUGJ00BOnwDX0E"
 );
 
-// Resolver functions that will fulfill queries
+// Create the functions that fulfill the queries defined in `typeDefs.js`
 const resolvers = {
   Query: {
     categories: async () => {
       return await Category.find();
     },
 
-    // Get all drinks
+    // Find and return all documents from the drink collection
     drinks: async (parent, { category, name }) => {
       const params = {};
 
@@ -28,7 +28,7 @@ const resolvers = {
       return await Drink.find(params).populate("category");
     },
 
-    // Get one drink
+    // Find and return one matching drink from the collection
     drink: async (parent, { _id }) => {
       return await Product.findById(_id).populate("category");
     },
@@ -100,30 +100,44 @@ const resolvers = {
     },
   },
 
-  // Functions that will fulfill the mutation
+  // Define the unctions that will fulfill the mutations
   Mutation: {
     addUser: async (parent, args) => {
+      // First we create the user
       const user = await User.create(args);
+
+      // To reduce friction for the user, we immediately sign a JSON Web Token and log the user in after they are created
       const token = signToken(user);
 
+      // Return an `Auth` object that consists of the signed token and user's information
       return { token, user };
     },
+
+    // Add a third argument to the resolver to access data in our `context`
     addOrder: async (parent, { drinks }, context) => {
       console.log(context);
+
+      // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
         const order = new Order({ drinks });
 
+        // Find the user by ID and add the new instance of an Order provided by second argument into User 'orders' array
         await User.findByIdAndUpdate(context.user._id, {
           $push: { orders: order },
         });
 
+        //Return newly added order
         return order;
       }
 
       throw new AuthenticationError("Not logged in");
     },
+
+    // Add a third argument to the resolver to access data in our `context`
     updateUser: async (parent, args, context) => {
+      // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
+        // Find the user by ID and return object after the update was applied with second argument parameters
         return await User.findByIdAndUpdate(context.user._id, args, {
           new: true,
         });
@@ -132,18 +146,22 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     login: async (parent, { email, password }) => {
+      // Find one user that matches the email parameter
       const user = await User.findOne({ email });
 
       if (!user) {
+        // If no user matches the email parameter, throw authentication error with feedback message
         throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
+        // If user password is incorrect, throw authentication error with feedback message
         throw new AuthenticationError("Incorrect credentials");
       }
 
+      // If user is found with email and password match, sign a JSON Web Token and log the user in
       const token = signToken(user);
 
       return { token, user };
