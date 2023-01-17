@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Jumbotron, Button, Container, Row, Col, Image } from "react-bootstrap";
+import coffee from '../components/images/cover.jpg';
 
 function Home(props) {
   return (
@@ -8,7 +9,7 @@ function Home(props) {
       <Container>
         <Row>
           <Col className="text-center">
-            <Image src="../public/images/cover.jpg" alt="coffee banner" fluid />
+            <Image src={coffee} alt="coffee banner" fluid />
             <h1 className="mt-4">Sleepy?</h1>
             <h2>
               {"Why not take a coffee break?"}

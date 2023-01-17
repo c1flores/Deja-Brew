@@ -13,6 +13,7 @@ import SignupForm from "./pages/SignUp";
 import LoginForm from "./pages/Login";
 // import NoMatch from "./pages/NoMatch";
 // import Success from "./pages/Success";
+import Footer from './components/Footer'
 
 // import FooterStrap from './components/Footer'
 import NavBar from "./components/Nav";
@@ -41,7 +42,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
           </Routes>
-          {/*<FooterStrap />*/}
+          <Footer />
         </StoreProvider>
       </Router>
     </ApolloProvider>

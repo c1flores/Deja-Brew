@@ -21,12 +21,12 @@ function SignupForm(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log({
-      email: formState.email,
-      password: formState.password,
-      firstName: formState.firstName,
-      lastName: formState.lastName,
-    });
+    // console.log({
+    //   email: formState.email,
+    //   password: formState.password,
+    //   firstName: formState.firstName,
+    //   lastName: formState.lastName,
+    // });
     const mutationResponse = await addUser({
       variables: {
         email: formState.email,
