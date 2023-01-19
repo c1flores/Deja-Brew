@@ -1,6 +1,4 @@
-import gql from "graphql-tag";
-
-//Modifying back-end data with mutations
+import { gql } from '@apollo/client';
 
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
@@ -8,6 +6,24 @@ export const LOGIN = gql`
       token
       user {
         _id
+      }
+    }
+  }
+`;
+
+export const ADD_ORDER = gql`
+  mutation addOrder($products: [ID]!) {
+    addOrder(products: $products) {
+      purchaseDate
+      products {
+        _id
+        name
+        description
+        price
+        quantity
+        category {
+          name
+        }
       }
     }
   }
@@ -29,28 +45,6 @@ export const ADD_USER = gql`
       token
       user {
         _id
-      }
-    }
-  }
-`;
-
-export const ADD_ORDER = gql`
-  mutation addOrder($drinks: [ID]!) {
-    addOrder(drinks: $drinks) {
-      purchaseDate
-      drinks {
-        _id
-        name
-        description
-        price
-        category {
-          name
-        }
-        customize {
-          size
-          milk
-          flavor
-        }
       }
     }
   }

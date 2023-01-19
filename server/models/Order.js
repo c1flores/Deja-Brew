@@ -1,24 +1,20 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// Schemas define the shape of the documents within the collection.
 const orderSchema = new Schema({
-  // Schemas define the properties of the document
   purchaseDate: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
-  drinks: [
+  products: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Drink",
-    },
-  ],
+      ref: 'Product'
+    }
+  ]
 });
 
-// Create model using mongoose.model()
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model('Order', orderSchema);
 
-// Export model
 module.exports = Order;

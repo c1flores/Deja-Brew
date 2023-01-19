@@ -1,53 +1,78 @@
-import { useReducer } from "react";
 import {
-  UPDATE_DRINKS,
+  UPDATE_PRODUCTS,
   ADD_TO_CART,
+  UPDATE_CART_QUANTITY,
   REMOVE_FROM_CART,
   ADD_MULTIPLE_TO_CART,
   UPDATE_CATEGORIES,
   UPDATE_CURRENT_CATEGORY,
   CLEAR_CART,
+  TOGGLE_CART
 } from "./actions";
 
-// Main reducer function for managing application state
+const initialState = {
+  products: [],
+  categories: [],
+  currentCategory: '',
+  cart: [],
+  cartOpen: false
+};
 
-export const reducer = (state, action) => {
+export const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_DRINKS:
+    case UPDATE_PRODUCTS:
       return {
         ...state,
-        drinks: [...action.drinks],
+        products: [...action.products],
       };
 
     case ADD_TO_CART:
       return {
         ...state,
         cartOpen: true,
-        cart: [...state.cart, action.item],
+        cart: [...state.cart, action.product],
       };
 
     case ADD_MULTIPLE_TO_CART:
       return {
         ...state,
-        cart: [...state.cart, ...action.drinks],
+        cart: [...state.cart, ...action.products],
+      };
+
+    case UPDATE_CART_QUANTITY:
+      return {
+        ...state,
+        cartOpen: true,
+        cart: state.cart.map(product => {
+          if (action._id === product._id) {
+            product.purchaseQuantity = action.purchaseQuantity
+          }
+          return product
+        })
       };
 
     case REMOVE_FROM_CART:
-      let newState = state.cart.filter((item) => {
-        return item._id !== action._id;
+      let newState = state.cart.filter(product => {
+        return product._id !== action._id;
       });
 
       return {
         ...state,
         cartOpen: newState.length > 0,
-        cart: newState,
+        cart: newState
       };
 
     case CLEAR_CART:
       return {
         ...state,
         cartOpen: false,
-        cart: [],
+        cart: []
+      };
+
+    case TOGGLE_CART:
+      return {
+        ...state,
+        cartOpen: !state.cartOpen
       };
 
     case UPDATE_CATEGORIES:
@@ -59,14 +84,12 @@ export const reducer = (state, action) => {
     case UPDATE_CURRENT_CATEGORY:
       return {
         ...state,
-        currentCategory: action.currentCategory,
-      };
+        currentCategory: action.currentCategory
+      }
 
     default:
       return state;
   }
 };
 
-export function useProductReducer(initialState) {
-  return useReducer(reducer, initialState);
-}
+export default reducers;
