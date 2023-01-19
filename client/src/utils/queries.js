@@ -1,43 +1,37 @@
-import gql from "graphql-tag";
+import { gql } from '@apollo/client';
 
-// Created GraphQL queries to be executed by Apollo Client
-
-export const QUERY_DRINKS = gql`
-  query getDrinks($category: ID) {
-    drinks(category: $category) {
+export const QUERY_PRODUCTS = gql`
+  query getProducts($category: ID) {
+    products(category: $category) {
       _id
       name
       description
       price
+      quantity
       image
       category {
         _id
-      }
-      customize {
-        size
-        milk
-        flavor
       }
     }
   }
 `;
 
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($drinks: [ID]!) {
-    checkout(drinks: $drinks) {
+  query getCheckout($products: [ID]!) {
+    checkout(products: $products) {
       session
     }
   }
 `;
 
-export const QUERY_ALL_DRINKS = gql`
+export const QUERY_ALL_PRODUCTS = gql`
   {
-    drinks {
+    products {
       _id
       name
       description
       price
-      image
+      quantity
       category {
         name
       }
@@ -62,12 +56,12 @@ export const QUERY_USER = gql`
       orders {
         _id
         purchaseDate
-        drinks {
+        products {
           _id
           name
           description
           price
-
+          quantity
           image
         }
       }

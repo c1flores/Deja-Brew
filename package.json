@@ -1,36 +1,19 @@
 {
-  "name": "deja-brew",
+  "name": "mern-shopping",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "@comment start": "In production, we only run the back-end server, which will serve the built React application code as its front end.",
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "cd server && npm start",
-    "@comment start:dev": "In development, we need to run both a back-end server and the React development server, so we use the `concurrently` library to execute two separate promises at the same time.",
-    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
-    "@comment install": "Since our dependencies for the entire application exist in two smaller applications, we use this script to automatically install all of them at once.",
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "@comment seed": "We can seed our database with data when we run this command.",
     "seed": "cd server && npm run seed",
-    "@comment build": "When we deploy our application, we instruct the hosting service to execute the `build` command and build our production-ready React application.",
-    "build": "cd client && npm run build",
-    "@comment heroku-postbuild": "Customized build script for Heroku that runs in place of regular build script. Runs after Heroku installs dependencies, but before Heroku prunes and caches dependencies.",
-    "heroku-postbuild": "cd client && npm run build"
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "@stripe/stripe-js": "^1.46.0",
-    "bcryptjs": "^2.4.3",
-    "apollo-server-express": "^2.25.3",
-    "express": "^4.17.2",
-    "graphql": "^15.8.0",
-    "if-env": "^1.0.4",
-    "mongoose": "^6.8.3"
   }
 }
