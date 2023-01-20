@@ -1,5 +1,5 @@
 // Miscellaneous functions and IndexedDB API
-export function puluralize(name, count) {
+export function pluralize(name, count) {
     if (count === 1) {
         return name;
     }
