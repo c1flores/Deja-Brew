@@ -1,10 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Typography, Button, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
+import useStyles from './styles';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item , onUpdateCartQty}) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const removeFromCart = item => {
     dispatch({
@@ -36,33 +39,21 @@ const CartItem = ({ item }) => {
   }
 
   return (
-    <div className="flex-row">
-      <div>
-        <img
-          src={`/images/${item.image}`}
-          alt=""
-        />
-      </div>
-      <div>
-        <div>{item.name}, ${item.price}</div>
-        <div>
-          <span>Qty:</span>
-          <input
-            type="number"
-            placeholder="1"
-            value={item.purchaseQuantity}
-            onChange={onChange}
-          />
-          <span
-            role="img"
-            aria-label="trash"
-            onClick={() => removeFromCart(item)}
-          >
-            🗑️
-          </span>
+    <Card className="cart-item">
+      <CardMedia image={`/images/${item.image}`} alt={item.name} className={classes.media} />
+      <CardContent className={classes.cardContent}>
+        <Typography variant="h5">{item.name}</Typography>
+        <Typography variant="h6">{item.price}</Typography>
+      </CardContent>
+      <CardActions className={classes.cardActions}>
+        <div className={classes.buttons}>
+          <Button type="button" size="small" onClick={[ item, item.purchaseQuantity - 1]}>-</Button>
+          <Typography>&nbsp;{item.purchaseQuantity}&nbsp;</Typography>
+          <Button type="button" size="small" onClick={[ item, item.purchaseQuantity + 1]}>+</Button>
         </div>
-      </div>
-    </div>
+        <Button variant="contained" type="button" color="secondary" onClick={() => removeFromCart(item)}>Remove</Button>
+      </CardActions>
+    </Card>
   );
 }
 
