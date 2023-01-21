@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/client';
+import { Button, Typography } from '@material-ui/core';
 import { QUERY_CHECKOUT } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import CartItem from '../CartItem';
@@ -73,9 +74,7 @@ const Cart = () => {
 
   return (
     <div className="cart">
-      <div className="close" onClick={toggleCart}>
-        [close]
-      </div>
+      <Button variant="contained" color="secondary" onClick={toggleCart}>Close</Button>
       <h2>Shopping Cart</h2>
       {state.cart.length ? (
         <div>
@@ -84,22 +83,22 @@ const Cart = () => {
           ))}
 
           <div className="flex-row space-between">
-            <strong>Total: ${calculateTotal()}</strong>
+            <Typography variant="h6">Total: ${calculateTotal()}</Typography>
 
             {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
+              <Button variant="contained" color='primary' onClick={submitCheckout}>Checkout</Button>
             ) : (
               <span>(log in to check out)</span>
             )}
           </div>
         </div>
       ) : (
-        <h3>
+        <Typography variant='h6'>
           <span role="img" aria-label="shocked">
             😱
           </span>
           You haven't added anything to your cart yet!
-        </h3>
+        </Typography>
       )}
     </div>
   );
