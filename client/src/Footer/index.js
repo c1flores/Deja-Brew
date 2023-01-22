@@ -1,11 +1,9 @@
 import React from 'react';
 import './footer.css'
 // import Auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
-import { AiFillInstagram } from 'react-icons/ai'
-import { BsFacebook } from 'react-icons/bs'
-import { FaTumblr } from 'react-icons/fa'
-
+import { AiFillInstagram } from 'react-icons/ai';
+import { BsFacebook } from 'react-icons/bs';
+import { FaTumblr } from 'react-icons/fa';
 
 function Footer() {
     return (
@@ -17,7 +15,7 @@ function Footer() {
                 <li><Link to="/"></Link></li>
                 <li><Link to="/login">login</Link></li>
                 <li><Link to="/signup">signup</Link></li>
-           </ul> */}
+    </ul> */}
 
            <div className='footer__socials'>
                 <a href='https://instagram.com'><AiFillInstagram /></a>
