@@ -7,9 +7,12 @@ import {
     UPDATE_CURRENT_CATEGORY 
  } from "../../utils/actions";
  import { idbPromise } from '../../utils/helpers'
+import { Button } from "@material-ui/core";
+import useStyles from './styles';
 
 function CategoryMenu() {
     const dispatch = useDispatch();
+    const classes = useStyles();
     const state = useSelector((state) => state);
 
     const { categories } = state;
@@ -46,14 +49,17 @@ function CategoryMenu() {
             <div>
                 <h3>Choose a drink</h3>
                 {categories.map((item) => (
-                    <button 
+                    <Button
+                    className={classes.buttons}
+                    variant="contained"
+                    color="primary" 
                     key={item._id}
                     onClick={() => {
                         handleClick(item._id);
                     }}
                     >
                         {item.name}
-                    </button>
+                    </Button>
                 ))}
             </div>
         )

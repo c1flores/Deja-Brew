@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   media: {
-    height: 260,
+    height: 160,
+    margin: '15px'
   },
   cardContent: {
     display: 'flex',
@@ -15,4 +16,8 @@ export default makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
+  cartItem: {
+    margin: "30px",
+    maxWidth: '60%'
+  }
 }));

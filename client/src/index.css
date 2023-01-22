@@ -112,6 +112,10 @@ img {
   max-width: 100%;
 }
 
+Button {
+  margin: 10px;
+}
+
 span[role="img"] {
   cursor: default;
 }
