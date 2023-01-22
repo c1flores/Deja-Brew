@@ -1,14 +1,14 @@
 import React from "react";
-import ProductList from "../components/ProductList";
-import CategoryMenu from "../components/CategoryMenu";
-import Cart from "../components/Cart";
+import Parallax from "../components/Parallax";
+import ParallaxImg1 from "../assets/cover.jpg";
 
 const Home = () => {
   return (
     <div className="container">
-      <CategoryMenu />
-      <ProductList />
-      <Cart />
+      <Parallax image={ParallaxImg1}>
+        <h1 className="main-title">Deja Brew, Inc.</h1>
+        <p className="subtitle">Serving only the best since like a week ago</p>
+      </Parallax>
     </div>
   );
 };

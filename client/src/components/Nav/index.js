@@ -4,30 +4,41 @@ import { Link } from 'react-router-dom';
 
 function Nav() {
   function showNavigation() {
+
     if (Auth.loggedIn()) {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
+        <ol className="flex-row bullets" style={{ listStyle: 'none' }}>
+           <li className="mx-3">
+            <Link to="/menu">Menu</Link>
+          </li>
+          <li className="mx-3">
             <Link to="/orderHistory">Order History</Link>
           </li>
-          <li className="mx-1">
+          <li className="mx-3">
+          <i class="fa fa-fw fa-envelope"></i>
+            <Link to="/contact">Contact</Link>
+          </li>
+          <li className="mx-3">
             {/* this is not using the Link component to logout or user and then refresh the application to the start */}
             <a href="/" onClick={() => Auth.logout()}>
               Logout
             </a>
           </li>
-        </ul>
+        </ol>
       );
     } else {
       return (
-        <ul className="flex-row">
-          <li className="mx-1">
+        <ol className="flex-row" style={{ listStyle: 'none' }}>
+          <li className="mx-3">
+            <Link to="/menu">Menu</Link>
+          </li>
+          <li className="mx-3">
             <Link to="/signup">Signup</Link>
           </li>
-          <li className="mx-1">
+          <li className="mx-3">
             <Link to="/login">Login</Link>
           </li>
-        </ul>
+        </ol>
       );
     }
   }
