@@ -39,7 +39,7 @@ const CartItem = ({ item , onUpdateCartQty}) => {
   }
 
   return (
-    <Card className="cart-item">
+    <Card className={classes.cartItem}>
       <CardMedia image={`/images/${item.image}`} alt={item.name} className={classes.media} />
       <CardContent className={classes.cardContent}>
         <Typography variant="h5">{item.name}</Typography>

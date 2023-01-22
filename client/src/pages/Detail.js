@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import '../index.css'
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
 
 import Cart from '../components/Cart';
 import {
@@ -94,13 +96,15 @@ function Detail() {
 
           <p>
             <strong>Price:</strong>${currentProduct.price}{' '}
-            <button onClick={addToCart}>Add to Cart</button>
-            <button
+            <Button color='primary' variant="contained" onClick={addToCart}>Add to Cart</Button>
+            <Button
+              color='primary'
+              variant='contained'
               disabled={!cart.find((p) => p._id === currentProduct._id)}
               onClick={removeFromCart}
             >
               Remove from Cart
-            </button>
+            </Button>
           </p>
 
           <img
