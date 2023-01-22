@@ -9,6 +9,7 @@ db.once("open", async () => {
   const categories = await Category.insertMany([
     { name: "Hot Drinks" },
     { name: "Cold Drinks" },
+    { name: "Pastries" },
   ]);
 
   // Log out the seed data to indicate what should appear in the database
@@ -107,6 +108,51 @@ db.once("open", async () => {
       image: "iced-cappuccino.jpg",
       category: categories[1]._id,
       price: 4.25,
+      quantity: 1,
+    },
+    {
+      name: "Apple-Fritter",
+      description:
+        "A luscious depp fried donut filled with apples, cinnamon, and drizzled with glaze.",
+      image: "apple-fritter.jpg",
+      category: categories[2]._id,
+      price: 3.50,
+      quantity: 1,
+    },
+     {
+      name: "Brownie",
+      description:
+        " A small, rich, chocolate, baked cake-slice.",
+      image: "brownie.jpg",
+      category: categories[2]._id,
+      price: 3.25,
+      quantity: 1,
+    },
+    {
+      name: "Cake Pop",
+      description:
+        " Cake and frosting mixed together to form a truffle-like ball.",
+      image: "cake-pops.jpg",
+      category: categories[2]._id,
+      price: 3.25,
+      quantity: 1,
+    },
+     {
+      name: "Croissant",
+      description:
+        "A crescent-shaped roll made with light, flaky, and extremely butter pastry dough.",
+      image: "croissant.jpg",
+      category: categories[2]._id,
+      price: 2.50,
+      quantity: 1,
+    },
+     {
+      name: "Croissant Sandwich",
+      description:
+        "A croissant filled with a generous slice of turkey, cheese, and crispy lettuce.",
+      image: "croissant-sammy.jpg",
+      category: categories[2]._id,
+      price: 4.50,
       quantity: 1,
     },
   ]);
