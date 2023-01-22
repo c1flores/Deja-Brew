@@ -11,6 +11,7 @@ import { setContext } from "@apollo/client/link/context";
 import { Provider } from "react-redux";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+
 import store from "./utils/store";
 
 import Home from "./pages/Home";
