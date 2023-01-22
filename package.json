@@ -17,6 +17,7 @@
     "concurrently": "^7.6.0"
   },
   "dependencies": {
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "react-scripts": "^4.0.2"
   }
 }
