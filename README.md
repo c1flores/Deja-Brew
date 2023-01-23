@@ -42,7 +42,7 @@ A coffee shop platform where users can order menu items by adding items into a c
 </br>
 
 ## Screen Capture
-
+![]()
 ## Live Application
 
 [Link](https://dejaabrew.herokuapp.com)
