@@ -65,8 +65,8 @@ function App() {
             </Routes>
           </Provider>
         </div>
-        <Footer />
       </Router>
+      <Footer />
     </ApolloProvider>
   );
 }
