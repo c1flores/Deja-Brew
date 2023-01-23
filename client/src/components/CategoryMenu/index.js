@@ -52,7 +52,7 @@ function CategoryMenu() {
                     <Button
                     className={classes.buttons}
                     variant="contained"
-                    color="primary" 
+                     
                     key={item._id}
                     onClick={() => {
                         handleClick(item._id);

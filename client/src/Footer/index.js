@@ -20,7 +20,7 @@ function Footer() {
            <div className='footer__socials'>
                 <a href='https://instagram.com'><AiFillInstagram /></a>
                 <a href='https://facebook.com'><BsFacebook /></a>
-                <a href='https://tumbaler.com'><FaTumblr /></a>
+                <a href='https://www.tumblr.com'><FaTumblr /></a>
            </div>
 
            <div className='footer__copyright'>
