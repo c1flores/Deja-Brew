@@ -7,6 +7,7 @@ import { idbPromise } from '../../utils/helpers';
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
 import useStyles from './styles';
+import './cards.css'
 
 function ProductItem(item) {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function ProductItem(item) {
     <Link to={`/products/${_id}`}>
     <CardMedia className={classes.media} image={`/images/${item.image}`} title={name} />
     </Link>
-    <CardContent>
+    <CardContent className='media'>
       <div className={classes.cardContent}>
         <Typography gutterBottom variant="h5" component="h2">
           {name}
