@@ -45,7 +45,7 @@ A coffee shop platform where users can order menu items by adding items into a c
 
 ## Live Application
 
-* [Link](https://deja-breww.herokuapp.com/)
+[Link](https://dejaabrew.herokuapp.com)
 
 ## Installation
   1. Fork and clone repository to local machine. 
