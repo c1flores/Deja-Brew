@@ -42,7 +42,8 @@ A coffee shop platform where users can order menu items by adding items into a c
 </br>
 
 ## Screen Capture
-![]()
+![](https://github.com/c1flores/Deja-Brew/blob/main/client/src/assets/Walkthrough.gif)
+
 ## Live Application
 
 [Link](https://dejaabrew.herokuapp.com)
