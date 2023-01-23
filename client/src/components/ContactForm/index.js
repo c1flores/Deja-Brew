@@ -5,6 +5,7 @@ const ContactForm = () => {
   const onSubmit = (e) => {
     e.preventDefault()
     setFormStatus('Submitted')
+    window.location.reload();
     const { name, email, message } = e.target.elements
     let conFom = {
       name: name.value,

@@ -5,6 +5,7 @@
   --light: #fafafa;
   --dark: #272f32;
   --error: rgb(228, 46, 1);
+  --cream: #fffdd0;
   --spacing-one: calc(1rem * 0.5);
   --spacing-two: calc(1rem);
 }
@@ -28,6 +29,30 @@ body {
   color: var(--dark);
 }
 
+.main-title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 100px;
+  color: var(--cream);
+}
+
+ .subtitle {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 35px;
+  color: var(--cream);
+ }
+
+.parallax-effect {
+  background-size: cover;
+}
+
+
+ .bullets {
+  font-weight: 400;
+  font-size: 25px;
+  color: var(--cream);
+}
 h1,
 h2,
 h3,
@@ -166,6 +191,10 @@ input:focus {
 .mx-2 {
   margin-right: var(--spacing-two);
   margin-left: var(--spacing-two);
+}
+
+.mx-3, .header-title {
+ font-weight: bold;
 }
 
 .my-1 {

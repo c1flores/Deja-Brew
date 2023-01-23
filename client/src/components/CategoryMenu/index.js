@@ -47,7 +47,7 @@ function CategoryMenu() {
 
         return (
             <div>
-                <h3>Choose a drink</h3>
+                <h3 className= "mx-3">Choose an item</h3>
                 {categories.map((item) => (
                     <Button
                     className={classes.buttons}

@@ -19,12 +19,12 @@ function OrderHistory() {
 
         {user ? (
           <>
-            <h2>
+            <h3 className= "mx-3">
               Order History for {user.firstName} {user.lastName}
-            </h2>
+            </h3>
             {user.orders.map((order) => (
               <div key={order._id} className="my-2">
-                <h3>
+                <h3 className= "mx-3">
                   {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
                 </h3>
                 <div className="flex-row">
