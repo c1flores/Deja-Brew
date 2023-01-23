@@ -15,7 +15,6 @@ function Nav() {
             <Link to="/orderHistory">Order History</Link>
           </li>
           <li className="mx-3">
-          <i className="fa fa-fw fa-envelope"></i>
             <Link to="/contact">Contact</Link>
           </li>
           <li className="mx-3">

@@ -90,7 +90,7 @@ function Detail() {
         <div className="container my-1">
           <Link to="/menu">← Back to Products</Link>
 
-          <h2>{currentProduct.name}</h2>
+          <h2 className = "header-title">{currentProduct.name}</h2>
 
           <p>{currentProduct.description}</p>
 
