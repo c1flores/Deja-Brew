@@ -2,6 +2,7 @@ import React from "react";
 import Parallax from "../components/Parallax";
 import ParallaxImg1 from "../assets/cover.jpg";
 
+
 const Home = () => {
   return (
     <div className="container">

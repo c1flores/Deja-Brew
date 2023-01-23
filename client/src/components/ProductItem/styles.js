@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(() => ({
   root: {
     // maxWidth: 345, original width style
-    width: "30%",
+    minWidth: '31%',
+    maxWidth: '100%',
     height: "auto;",
     margin: "10px"
   },
@@ -19,4 +20,7 @@ export default makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+
+  
 }));
+
